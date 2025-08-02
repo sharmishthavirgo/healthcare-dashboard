@@ -18,7 +18,11 @@ export const MOCK_PATIENTS: Patient[] = [
       lastVisit: '2024-06-15',
       status: 'active',
     },
-    insurance: { provider: 'BlueCross', policyNumber: 'ABC12345', effectiveDate: '2020-01-01', expirationDate: '2025-12-31' },
+    insurance: {
+      provider: 'BlueCross', policyNumber: 'ABC12345', effectiveDate: '2020-01-01', expirationDate: '2025-12-31',
+      copay: 0,
+      deductible: 0
+    },
     documents: [],
     createdAt: '2023-01-01T10:00:00Z',
     updatedAt: '2024-07-27T10:00:00Z',
@@ -40,7 +44,7 @@ export const MOCK_PATIENTS: Patient[] = [
       lastVisit: '2023-11-20',
       status: 'inactive',
     },
-    insurance: { provider: 'Aetna', policyNumber: 'DEF67890', effectiveDate: '2021-03-01', expirationDate: '2026-02-28' },
+    insurance: { provider: 'Aetna', policyNumber: 'DEF67890', effectiveDate: '2021-03-01', expirationDate: '2026-02-28', copay: 20, deductible: 500 },
     documents: [],
     createdAt: '2023-02-01T11:00:00Z',
     updatedAt: '2024-07-27T11:00:00Z',
@@ -48,11 +52,11 @@ export const MOCK_PATIENTS: Patient[] = [
   // ... add more mock patients up to 20 for MOCK_PATIENTS
 ];
 
-export const LARGE_MOCK_PATIENTS: Patient[] = Array.from({ length: 1500 }, (_, i) => ({
+export const LARGE_MOCK_PATIENTS: Patient[] = Array.from({ length: 10 }, (_, i) => ({
   id: `pat-${String(i + 1).padStart(4, '0')}`,
   firstName: `Patient${i + 1}`,
   lastName: `Last${i + 1}`,
-  dateOfBirth: `19${(80 + (i % 20))}-0${(i % 12) + 1}-0${(i % 28) + 1}`,
+  dateOfBirth: `19${(80 + (i % 20))}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
   email: `patient${i + 1}@example.com`,
   phone: `555-123-${String(i + 1).padStart(4, '0').slice(-4)}`,
   address: { street: `${i + 1} Elm St`, city: 'Gridtown', state: 'TX', zipCode: '75001', country: 'USA' },
@@ -62,11 +66,11 @@ export const LARGE_MOCK_PATIENTS: Patient[] = Array.from({ length: 1500 }, (_, i
     currentMedications: i % 5 === 0 ? [{ name: 'Painkiller', dosage: '1 pill', frequency: 'daily' }] : [],
     conditions: i % 2 === 0 ? ['Flu'] : [],
     bloodType: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'][i % 8] as 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-',
-    lastVisit: `202${(i % 4)}-0${(i % 12) + 1}-0${(i % 28) + 1}`,
+    lastVisit: `202${(i % 4)}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
     status: ['active', 'inactive', 'critical'][i % 3] as 'active' | 'inactive' | 'critical',
   },
-  insurance: { provider: 'HealthPlus', policyNumber: `POL${String(i + 1).padStart(5, '0')}`, effectiveDate: '2022-01-01', expirationDate: '2027-12-31' },
+  insurance: { provider: 'HealthPlus', policyNumber: `POL${String(i + 1).padStart(5, '0')}`, effectiveDate: '2022-01-01', expirationDate: '2027-12-31', copay: 20, deductible: 500 },
   documents: [],
-  createdAt: `2023-0${(i % 12) + 1}-01T10:00:00Z`,
-  updatedAt: `2024-0${(i % 12) + 1}-01T11:00:00Z`,
+  createdAt: `2023-${String((i % 12) + 1).padStart(2, '0')}-01T10:00:00Z`,
+  updatedAt: `2024-${String((i % 12) + 1).padStart(2, '0')}-01T11:00:00Z`,
 }));

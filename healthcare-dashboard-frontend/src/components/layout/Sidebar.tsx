@@ -1,4 +1,3 @@
-// frontend/src/components/layout/Sidebar.tsx
 import React from 'react';
 import { Drawer, Toolbar, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, Divider, Typography } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -17,7 +16,7 @@ const navItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
   { text: 'Patients', icon: <PeopleIcon />, path: '/patients' },
   { text: 'Doctors', icon: <MedicalServicesIcon />, path: '/doctors' }, // Placeholder
-  { text: 'Settings', icon: <SettingsIcon />, path: '/settings' }, // Placeholder
+  { text: 'Nurses', icon: <SettingsIcon />, path: '/nurses' }, // Placeholder
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({ drawerWidth, mobileOpen, onMobileClose }) => {
@@ -58,7 +57,6 @@ const Sidebar: React.FC<SidebarProps> = ({ drawerWidth, mobileOpen, onMobileClos
         ))}
       </List>
       <Divider />
-      {/* Additional navigation items or user info can go here */}
     </Box>
   );
 

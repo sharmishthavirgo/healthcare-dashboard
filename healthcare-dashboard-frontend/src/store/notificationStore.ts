@@ -1,4 +1,3 @@
-// frontend/src/store/notificationStore.ts
 import { create } from 'zustand';
 
 interface Notification {

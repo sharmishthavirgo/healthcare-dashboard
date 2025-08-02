@@ -1,7 +1,6 @@
-// frontend/src/store/formDraftStore.ts
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { Patient } from '@types/patient'; // Import Patient interface
+import { Patient } from '../types/patient';
 
 interface FormDraftState {
   patientDrafts: Record<string, Patient | Partial<Patient>>; // Keyed by patientId or 'new_patient'

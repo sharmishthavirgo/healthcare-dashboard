@@ -1,12 +1,8 @@
-// frontend/src/components/layout/Footer.tsx
 import React from 'react';
 import { Box, Typography, Container } from '@mui/material';
 
-interface FooterProps {
-  drawerWidth: number;
-}
 
-const Footer: React.FC<FooterProps> = ({ drawerWidth }) => {
+const Footer: React.FC = () => {
   return (
     <Box
       component="footer"
@@ -16,8 +12,6 @@ const Footer: React.FC<FooterProps> = ({ drawerWidth }) => {
         mt: 'auto', // Pushes footer to the bottom
         backgroundColor: 'background.paper',
         borderTop: '1px solid #e0e0e0',
-        width: { sm: `calc(100% - ${drawerWidth}px)` },
-        ml: { sm: `${drawerWidth}px` },
         textAlign: 'center',
       }}
     >

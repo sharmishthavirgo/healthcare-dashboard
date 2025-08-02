@@ -10,7 +10,7 @@ const PatientFormPage: React.FC = () => {
 
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ mt: 3 , ml: 3 }}>
         {isEditMode ? `Edit Patient: ${id}` : 'Create New Patient'}
       </Typography>
        <PatientForm patientId={id}/>

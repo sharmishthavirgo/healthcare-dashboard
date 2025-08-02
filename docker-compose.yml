@@ -1,0 +1,45 @@
+# docker-compose.yml
+version: '3.8' # Use a recent Docker Compose file format version
+
+services:
+  # Backend Service Definition
+  backend:
+    build:
+      context: ./backend # Docker will look for Dockerfile in the 'backend' directory
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000" # Maps host port 8000 to container port 8000
+    # Optional: For development, you can mount your local code for live reloads
+    # Uncomment the volumes section below if you want changes in your backend code to reflect without rebuilding the image
+    # volumes:
+    #   - ./backend:/app # Mounts your local backend folder into the container at /app
+    environment:
+      # Any environment variables your FastAPI app needs (e.g., database connection strings)
+      # For now, if you're using in-memory mock data, you might not need many.
+      UVICORN_HOST: 0.0.0.0
+      UVICORN_PORT: 8000
+    networks:
+      - app-network # Connects to the shared network
+
+  # Frontend Service Definition
+  frontend:
+    build:
+      context: ./frontend # Docker will look for Dockerfile in the 'frontend' directory
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80" # Maps host port 3000 to container port 80 (Nginx default)
+    depends_on:
+      - backend # Ensures the backend service starts before the frontend
+    environment:
+      # Pass the backend URL to the frontend build process
+      # The value 'http://backend:8000' uses the Docker Compose service name 'backend'
+      # Make sure this matches the prefix your frontend code expects (VITE_API_BASE_URL or REACT_APP_API_BASE_URL)
+      VITE_API_BASE_URL: http://backend:8000 # For Vite projects
+      # REACT_APP_API_BASE_URL: http://backend:8000 # For Create React App projects
+    networks:
+      - app-network # Connects to the shared network
+
+# Define a custom network for services to communicate
+networks:
+  app-network:
+    driver: bridge # Default bridge network

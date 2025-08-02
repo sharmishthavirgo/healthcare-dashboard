@@ -1,19 +1,15 @@
+// frontend/src/components/MainLayout.tsx
+
 import React from 'react';
-import { Box, Toolbar, useMediaQuery, useTheme } from '@mui/material';
+import { Box, Toolbar } from '@mui/material';
 import Header from './Header';
 import Sidebar from './Sidebar';
 import Footer from './Footer';
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom';
 
-interface MainLayoutProps {
-  children: React.ReactNode;
-}
+const drawerWidth = 240;
 
-const drawerWidth = 240; // Standard sidebar width
-
-const MainLayout: React.FC<MainLayoutProps> = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+const MainLayout: React.FC = () => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -31,18 +27,26 @@ const MainLayout: React.FC<MainLayoutProps> = () => {
       <Box
         component="main"
         sx={{
+          flex: '1 1 auto', // Allows this main content area to grow
           flexGrow: 1,
-          p: 3,
+          // Remove padding (p: 3) from here. We'll apply it via Container on individual pages.
+          // p: 3, // REMOVE THIS LINE
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-          mt: { xs: 7, sm: 8 }, // Adjust for AppBar height
-          mb: { xs: 6, sm: 0 }, // Adjust for Footer height on mobile/desktop
+          mt: { xs: 7, sm: 8 },
+          mb: { xs: 6, sm: 0 },
           display: 'flex',
           flexDirection: 'column',
+          minHeight: 0,
         }}
       >
         <Toolbar sx={{ display: { xs: 'block', sm: 'none' } }} /> {/* Spacer for mobile app bar */}
-        <Outlet/>
-        <Footer drawerWidth={drawerWidth} />
+
+        {/* Wrap Outlet in a Box that can grow */}
+        <Box sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+          <Outlet />
+        </Box>
+
+        <Footer />
       </Box>
     </Box>
   );

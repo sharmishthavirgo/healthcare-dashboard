@@ -1,5 +1,5 @@
 // frontend/src/components/common/ErrorBoundary.tsx
-import React, { Component, ErrorInfo, ReactNode } from 'react';
+import  { Component, ErrorInfo, ReactNode } from 'react';
 import { Box, Typography, Button, Paper } from '@mui/material';
 
 interface Props {
@@ -20,7 +20,7 @@ class ErrorBoundary extends Component<Props, State> {
     errorInfo: null,
   };
 
-  public static getDerivedStateFromError(_: Error): State {
+  public static getDerivedStateFromError(): State {
     return { hasError: true, error: null, errorInfo: null }; // Reset error/errorInfo, set hasError
   }
 
@@ -36,7 +36,7 @@ class ErrorBoundary extends Component<Props, State> {
 
   public render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
+
       return this.props.fallback || (
         <Box
           sx={{
@@ -55,7 +55,7 @@ class ErrorBoundary extends Component<Props, State> {
             <Typography variant="h4" gutterBottom>
               Something went wrong.
             </Typography>
-            <Typography variant="body1" paragraph>
+            <Typography variant="body1" >
               We're sorry for the inconvenience. Please try again later.
             </Typography>
             {/* Optional: Display error details in development */}

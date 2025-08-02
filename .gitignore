@@ -1,2 +1,52 @@
-node_modules
-.DS_Store
+# .gitignore (in your project root)
+
+# === Global Ignores ===
+.DS_Store             # macOS system files
+.env                  # Environment variables (sensitive data)
+.env.*local           # Specific local environment files (e.g., .env.development.local)
+npm-debug.log* # npm debug logs
+yarn-debug.log* # Yarn debug logs
+yarn-error.log* # Yarn error logs
+.pnpm-debug.log* # pnpm debug logs
+.idea/                # JetBrains IDE settings (IntelliJ, PyCharm, WebStorm)
+.vscode/              # VS Code settings (if user-specific, otherwise useful to commit)
+*.iml                 # IntelliJ IDEA module files
+*.swp                 # Vim swap files
+*.swo                 # Vim swap files
+*~                    # Temporary files (often created by editors)
+
+# === Node.js / Frontend (React/TypeScript) ===
+/frontend/node_modules/ # Installed npm/yarn packages
+/frontend/build/        # Create React App build output
+/frontend/dist/         # Vite build output
+/frontend/.parcel-cache/ # Parcel build cache (if using Parcel)
+/frontend/coverage/     # Test coverage reports
+/frontend/.eslintcache  # ESLint cache file
+/frontend/.cache/       # Generic cache folders
+/frontend/.next/        # Next.js build output (if you switch to Next.js)
+/frontend/yarn-debug.log
+/frontend/npm-debug.log
+/frontend/.env.development.local # Local environment variables, keep out of git
+/frontend/.env.production.local # Local environment variables, keep out of git
+
+# === Python / Backend (FastAPI) ===
+/backend/__pycache__/    # Python bytecode cache
+/backend/*.pyc           # Python compiled files
+/backend/*.pyo           # Python optimized files
+/backend/.pytest_cache/  # Pytest cache directory
+/backend/venv/           # Python virtual environment directory
+/backend/.env            # Backend environment variables (sensitive)
+/backend/.ipynb_checkpoints/ # Jupyter Notebook checkpoints (if used)
+/backend/instance/       # Flask instance folder (for app-specific data not under version control)
+/backend/db.sqlite3      # Default Django/Flask SQLite database file (if using SQLite)
+/backend/*.sqlite        # General SQLite database files
+/backend/*.db            # General database files
+/backend/celerybeat-schedule # Celery beat schedule file
+/backend/logs/           # Log files
+/backend/tmp/            # Temporary files
+
+# === Docker ===
+.dockerignore             # Docker ignore file itself (can be committed)
+.docker                 # Docker Desktop generated files
+**/docker-compose.override.yml # Local Docker Compose overrides (often sensitive/local config)
+*.log                     # General log files (containers might generate them)

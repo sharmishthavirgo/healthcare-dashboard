@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict
+import json
 
 app = FastAPI()
 
@@ -30,10 +31,9 @@ async def read_root():
 @app.get("/api/patients")
 async def get_patients():
     # In a real app, you'd fetch this from a database
-    patients = [
-        {"id": "pat_001", "name": "Alice Smith", "age": 45, "condition": "Hypertension"},
-        {"id": "pat_002", "name": "Bob Johnson", "age": 62, "condition": "Diabetes"},
-    ]
+    # Example patient data in Python dictionary format (replace with DB fetch in real app)
+    with open("mockPatients.json", "r") as f:
+        patients = json.load(f)
     return patients
 
 @app.post("/api/patients")
@@ -44,4 +44,5 @@ async def create_patient(patient_data: Dict):
 
 if __name__ == "__main__":
     import uvicorn
+    import json
     uvicorn.run(app, host="0.0.0.0", port=8000)

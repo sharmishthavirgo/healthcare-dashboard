@@ -14,9 +14,14 @@ export interface EmergencyContact {
 }
 
 export interface Medication {
+  id?: string; 
   name: string;
   dosage: string;
   frequency: string;
+  prescribedBy: string;
+  startDate: string; // YYYY-MM-DD
+  endDate?: string; // YYYY-MM-DD, optional
+  isActive: boolean;
 }
 
 export interface InsuranceInfo {
@@ -24,21 +29,23 @@ export interface InsuranceInfo {
   policyNumber: string;
   groupNumber?: string;
   effectiveDate: string; // YYYY-MM-DD
-  expirationDate: string; // YYYY-MM-DD
+  expirationDate?: string; // YYYY-MM-DD
   copay: number;
   deductible: number;
 }
 
 export interface Document {
-  id: string;
+  id?: string;
   name: string;
-  type: string;
+  type: 'medical_record' | 'insurance_card' | 'photo_id' | 'test_result' | 'other';
   uploadDate: string; // ISO string
-  url: string;
+  url?: string;
+  fileSize: number; // Size in bytes
+  mimeType: string; // e.g., 'application/pdf', 'image/jpeg'
 }
 
 export interface Patient {
-  id: string;
+  id?: string;
   firstName: string;
   lastName: string;
   dateOfBirth: string; // YYYY-MM-DD
@@ -47,15 +54,15 @@ export interface Patient {
   address: Address;
   emergencyContact: EmergencyContact;
   medicalInfo: {
-    allergies: string[];
-    currentMedications: Medication[];
-    conditions: string[];
+    allergies?: string[];
+    currentMedications?: Medication[];
+    conditions?: string[];
     bloodType: 'A+' | 'A-' | 'B+' | 'B-' | 'AB+' | 'AB-' | 'O+' | 'O-';
     lastVisit: string; // YYYY-MM-DD
     status: 'active' | 'inactive' | 'critical';
   };
   insurance: InsuranceInfo;
-  documents: Document[];
-  createdAt: string; // ISO string
-  updatedAt: string; // ISO string
+  documents?: Document[];
+  createdAt?: string; // ISO string
+  updatedAt?: string; // ISO string
 }

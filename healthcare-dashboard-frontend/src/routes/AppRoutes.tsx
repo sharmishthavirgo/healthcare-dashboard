@@ -12,31 +12,21 @@ const PatientFormPage = lazy(() => import('../pages/PatientFormPage')); // For c
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
 
 // Placeholder pages
-// const DoctorsPage = lazy(() => import('../pages/DoctorsPage'));
-// const SettingsPage = lazy(() => import('@pages/SettingsPage'));
-// const LoginPage = lazy(() => import('@pages/LoginPage')); // Assuming initial login page
+const DoctorsPage = lazy(() => import('../pages/DoctorsPage'));
+const NursesPage = lazy(() => import('../pages/NursesPage'));
 
 const AppRoutes: React.FC = () => {
-  // In a real app, you'd have logic here to check if the user is authenticated
-  // and redirect or use a <ProtectedRoute> component. For this assessment,
-  // we'll assume public access for now or just render directly.
-
   return (
     <Suspense fallback={<LoadingSpinner />}> {/* Fallback for lazy loaded components */}
       <Routes>
-        {/* Public routes (e.g., Login) */}
-        {/* <Route path="/login" element={<LoginPage />} /> */}
-
-        {/* Protected routes (e.g., Dashboard, Patients, etc.) */}
-        {/* We wrap these in MainLayout to provide consistent UI */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/patients" element={<PatientsPage />} />
           <Route path="/patients/new" element={<PatientFormPage />} /> {/* New patient form */}
           <Route path="/patients/:id" element={<PatientDetailsPage />} />
           <Route path="/patients/:id/edit" element={<PatientFormPage />} /> {/* Edit patient form */}
-          {/* <Route path="/doctors" element={<DoctorsPage />} />
-          <Route path="/settings" element={<SettingsPage />} /> */}
+          <Route path="/doctors" element={<DoctorsPage />} />
+          <Route path="/nurses" element={<NursesPage />} />
         </Route>
 
         {/* 404 Page - always last */}

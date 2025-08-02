@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Typography, Grid, Paper } from '@mui/material';
+import { Container, Typography, Grid, Paper } from '@mui/material';
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend,
 } from 'recharts';
@@ -19,7 +19,7 @@ const statusData = [
 const COLORS = ['#4caf50', '#ff9800', '#f44336'];
 const DashboardPage: React.FC = () => {
   return (
-    <Box sx={{ p: 3 }}>
+     <Container maxWidth="lg" sx={{ py: 3, flexGrow: 1 }}>
      <Typography variant="h4" gutterBottom>Dashboard Overview</Typography>
       <Typography variant="body1" gutterBottom>
         Welcome to the Healthcare Dashboard. Here you will see key metrics and recent activities.
@@ -63,7 +63,7 @@ const DashboardPage: React.FC = () => {
           </Paper>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 // const DashboardPage: React.FC = () => {

@@ -3,13 +3,13 @@ import { Box, Typography, TextField, InputAdornment, Button, Chip } from '@mui/m
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import { useQuery } from '@tanstack/react-query';
-import { MOCK_PATIENTS, LARGE_MOCK_PATIENTS } from '../../../mockData/patient';
 import { Link } from 'react-router-dom';
 import { format, differenceInYears, parseISO } from 'date-fns';
 import LoadingSpinner from '../../../components/common/LoadingSpinner';
 import { Patient } from '../../../types/patient';
 
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { getPatients } from '../../../api/patientApi';
 
 const getAge = (dateOfBirth: string): number => {
   const birthDate = parseISO(dateOfBirth);
@@ -31,16 +31,13 @@ const getStatusChipColor = (
   }
 };
 
-const fetchPatients = async (useLargeData: boolean = false): Promise<Patient[]> => {
-  console.log('Fetching patients...');
-  await new Promise((resolve) => setTimeout(resolve, 300));
-  return useLargeData ? LARGE_MOCK_PATIENTS : MOCK_PATIENTS;
+const fetchPatients = async (): Promise<Patient[]> => {
+  const data = await getPatients();
+  return data;
 };
 
 const PatientList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [useLargeDataset, setUseLargeDataset] = useState(false);
-
   const [paginationModel, setPaginationModel] = useState({
     pageSize: 10,
     page: 0,
@@ -52,8 +49,8 @@ const PatientList: React.FC = () => {
     isError,
     error,
   } = useQuery<Patient[], Error>({
-    queryKey: ['patients', useLargeDataset],
-    queryFn: () => fetchPatients(useLargeDataset),
+    queryKey: ['patients'],
+    queryFn: () => fetchPatients(),
     staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
@@ -79,7 +76,7 @@ const PatientList: React.FC = () => {
         patient.email.toLowerCase().includes(lowerCaseSearchTerm) ||
         patient.phone.includes(searchTerm) ||
         patient.medicalInfo.status.toLowerCase().includes(lowerCaseSearchTerm) ||
-        patient.medicalInfo.conditions.some((condition) =>
+        patient.medicalInfo.conditions?.some((condition) =>
           condition.toLowerCase().includes(lowerCaseSearchTerm),
         ),
     );
@@ -192,13 +189,6 @@ const PatientList: React.FC = () => {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h4">Patient List ({filteredPatients.length})</Typography>
         <Box>
-          <Button
-            variant="outlined"
-            onClick={() => setUseLargeDataset(!useLargeDataset)}
-            sx={{ mr: 2 }}
-          >
-            Switch to {useLargeDataset ? 'Small (20)' : 'Large (1500+)'} Data
-          </Button>
           <Button variant="contained" startIcon={<AddIcon />} component={Link} to="/patients/new">
             Add New Patient
           </Button>
@@ -229,12 +219,12 @@ const PatientList: React.FC = () => {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           loading={isLoading}
-          getRowId={(row) => row.id}
+          getRowId={(row) => row.id ?? ''}
           disableRowSelectionOnClick
         />
       </Box>
 
-      {/* The NoRowsOverlay is a better way to show this within DataGrid, but this external check still works */}
+      {/* Show message when no patients match the search criteria */}
       {filteredPatients.length === 0 && !isLoading && (
         <Box sx={{ p: 3, textAlign: 'center' }}>
           <Typography variant="body1" color="text.secondary">
@@ -244,6 +234,6 @@ const PatientList: React.FC = () => {
       )}
     </Box>
   );
-}
+};
 
 export default PatientList;

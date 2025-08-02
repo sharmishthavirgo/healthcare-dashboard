@@ -1,22 +1,21 @@
-// frontend/src/styles/theme.ts
 import { createTheme } from '@mui/material/styles';
 
 export const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1976d2', // A standard blue for primary actions
+      main: '#1976d2', 
     },
     secondary: {
-      main: '#dc004e', // A standard red for secondary actions
+      main: '#dc004e',
     },
     background: {
-      default: '#f4f6f8', // Light grey background
-      paper: '#ffffff', // White paper background
+      default: '#f4f6f8', 
+      paper: '#ffffff',
     },
     text: {
-      primary: '#212B36', // Dark text for readability
-      secondary: '#637381', // Muted text
+      primary: '#212B36', 
+      secondary: '#637381', 
     },
   },
   typography: {
@@ -34,27 +33,27 @@ export const lightTheme = createTheme({
   components: {
     MuiButton: {
       defaultProps: {
-        disableElevation: true, // Flat buttons
+        disableElevation: true, 
       },
       styleOverrides: {
         root: {
-          textTransform: 'none', // No uppercase text
+          textTransform: 'none',
         },
       },
     },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          boxShadow: 'none', // No shadow for a cleaner look
-          borderBottom: '1px solid #e0e0e0', // Subtle border
+          boxShadow: 'none',
+          borderBottom: '1px solid #e0e0e0', 
         },
       },
     },
     MuiDrawer: {
       styleOverrides: {
         paper: {
-          backgroundColor: '#212B36', // Dark sidebar background
-          color: '#ffffff', // White text for sidebar
+          backgroundColor: '#212B36', 
+          color: '#ffffff', 
         },
       },
     },

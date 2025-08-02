@@ -1,4 +1,3 @@
-// frontend/src/components/layout/Header.tsx
 import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Box, Button } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
